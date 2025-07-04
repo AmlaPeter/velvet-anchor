@@ -1,0 +1,46 @@
+<div #scroller class="table-container">
+  <table>
+    <thead>
+      <tr *ngFor="let headerGroup of table.getHeaderGroups()" class="header-group">
+        <ng-container *ngFor="let header of headerGroup.headers">
+          <th
+            [attr.colspan]="header.colSpan"
+            [class.placeholder]="header.isPlaceholder"
+            [style.width.px]="header.getSize()"
+            [style.left.px]="header.getStart('left')"
+            [style.right.px]="header.getAfter('right')"
+            [style.position]="header.column.getIsPinned() ? 'sticky' : undefined"
+            class="header-cell"
+          >
+            <div class="header-content">
+              {{ flexRender(header.column.columnDef.header, header.getContext()) }}
+              <span
+                class="resize-handle"
+                *ngIf="header.column.getCanResize()"
+                (mousedown)="header.getResizeHandler()($event)"
+                (touchstart)="header.getResizeHandler()($event)"
+              ></span>
+            </div>
+          </th>
+        </ng-container>
+      </tr>
+    </thead>
+    <tbody [style.height.px]="rowVirtualizer?.getTotalSize()">
+      <tr
+        *ngFor="let row of renderRows; let i = index"
+        [style.transform]="rowVirtualizer ? 'translateY(' + rowVirtualizer.getVirtualItems()[i].start + 'px)' : null"
+      >
+        <ng-container *ngFor="let cell of row.getVisibleCells()">
+          <td
+            [style.width.px]="cell.column.getSize()"
+            [style.left.px]="cell.column.getStart('left')"
+            [style.right.px]="cell.column.getAfter('right')"
+            [style.position]="cell.column.getIsPinned() ? 'sticky' : undefined"
+          >
+            {{ flexRender(cell.column.columnDef.cell, cell.getContext()) }}
+          </td>
+        </ng-container>
+      </tr>
+    </tbody>
+  </table>
+</div>
