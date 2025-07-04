@@ -1,0 +1,44 @@
+.table-container {
+  overflow-y: auto;
+  max-height: 400px;
+  position: relative;
+}
+
+.table-container table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border-bottom: 1px solid #e0e0e0;
+  padding: 4px 8px;
+  box-sizing: border-box;
+  background: white;
+}
+
+th.sticky,
+td.sticky {
+  background: white;
+  z-index: 1;
+}
+
+th {
+  position: sticky;
+  top: 0;
+  background: #f0f0f0;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+.resize-handle {
+  width: 5px;
+  cursor: col-resize;
+  user-select: none;
+  touch-action: none;
+}
